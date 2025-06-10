@@ -2,7 +2,9 @@ package utp.edu.pe.backend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utp.edu.pe.backend.models.dao.ICategoriaDAO;
 import utp.edu.pe.backend.models.dao.IProductoDAO;
+import utp.edu.pe.backend.models.entities.Categoria;
 import utp.edu.pe.backend.models.entities.Producto;
 
 import java.util.ArrayList;
@@ -12,6 +14,10 @@ import java.util.List;
 public class ProductoServiceImpl implements IProductoService {
     @Autowired //Se aplica inyección de dependencias del objeto DAO
     private IProductoDAO productoDAO;
+
+    @Autowired
+    private ICategoriaDAO categoriaDAO;
+
     @Override
     public List<Producto> getAll() {
         List<Producto> productos = new ArrayList<>();
@@ -21,6 +27,11 @@ public class ProductoServiceImpl implements IProductoService {
 
     @Override
     public Producto save(Producto producto) {
+        Long idCategoria = producto.getCategoria().getId();
+        Categoria categoria = categoriaDAO.findById(idCategoria)
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
+        producto.setCategoria(categoria);
+
         return productoDAO.save(producto);
     }
 

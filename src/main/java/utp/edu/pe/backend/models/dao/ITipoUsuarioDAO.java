@@ -1,4 +1,7 @@
 package utp.edu.pe.backend.models.dao;
 
-public interface ITipoUsuarioDAO {
+import org.springframework.data.repository.CrudRepository;
+import utp.edu.pe.backend.models.entities.TipoUsuario;
+
+public interface ITipoUsuarioDAO extends CrudRepository<TipoUsuario,Long> {
 }

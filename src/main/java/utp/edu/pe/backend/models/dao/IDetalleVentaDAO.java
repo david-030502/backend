@@ -1,4 +1,7 @@
 package utp.edu.pe.backend.models.dao;
 
-public interface IDetalleVentaDAO {
+import org.springframework.data.repository.CrudRepository;
+import utp.edu.pe.backend.models.entities.DetalleVenta;
+
+public interface IDetalleVentaDAO extends CrudRepository<DetalleVenta, Long> {
 }
